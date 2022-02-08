@@ -4,7 +4,7 @@
       <div class="header__logo">
         <a href="./" class="logo">
           <img
-            src="../assets/img/logo.svg"
+            src="@/assets/img/logo.svg"
             alt="V!U!E! Pizza logo"
             width="90"
             height="40"
@@ -30,7 +30,8 @@
               <div class="sheet__content dough">
                 <label
                   v-for="dough of doughs"
-                  :class="`dough__input dough__input--${dough.value}`"
+                  class="dough__input"
+                  :class="`dough__input--${dough.value}`"
                   :key="dough.id"
                 >
                   <input
@@ -55,7 +56,8 @@
                 <label
                   v-for="size of sizes"
                   :key="size.id"
-                  :class="`diameter__input diameter__input--${size.value}`"
+                  class="diameter__input"
+                  :class="`diameter__input--${size.value}`"
                 >
                   <input
                     type="radio"
@@ -103,7 +105,9 @@
                       v-for="ingredient in ingredients"
                       :key="ingredient.id"
                     >
-                      <span :class="`filling filling--${ingredient.value}`"
+                      <span
+                        class="filling"
+                        :class="`filling--${ingredient.value}`"
                         >{{ ingredient.name }}
                       </span>
 
@@ -168,23 +172,19 @@
 
 <script>
 import pizza from "@/static/pizza.json";
-import misc from "@/static/misc.json";
-import user from "@/static/user.json";
 import {
   normalizeData,
   doughThickness,
   sizes,
   sauces,
   ingredients,
-} from "@/common/helper.js";
+} from "@/common/helpers.js";
 
 export default {
   name: "Index",
   data: function () {
     return {
       pizza: pizza,
-      misc: misc,
-      user: user,
     };
   },
   computed: {
