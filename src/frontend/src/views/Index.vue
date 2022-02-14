@@ -17,6 +17,8 @@
             <BuilderPizzaView
               :ingredients="pizzaViewIngredients"
               :total="sumTotal"
+              :sauce="order.sauce.value"
+              :size="order.dough.value === 'large' ? 'big' : 'small'"
             />
           </div>
         </form>

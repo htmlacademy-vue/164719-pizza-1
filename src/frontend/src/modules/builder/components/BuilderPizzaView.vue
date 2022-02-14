@@ -10,7 +10,7 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
+      <div :class="`pizza pizza--foundation--${size}-${sauce}`">
         <div class="pizza__wrapper">
           <SelectorItem
             v-for="(ingredient, index) in ingredients"
@@ -44,6 +44,18 @@ export default {
       type: Number,
       default() {
         return 0;
+      },
+    },
+    size: {
+      type: String,
+      default() {
+        return "big";
+      },
+    },
+    sauce: {
+      type: String,
+      default() {
+        return "tomato";
       },
     },
   },
