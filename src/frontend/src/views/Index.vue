@@ -5,13 +5,19 @@
         <form action="#" method="post">
           <div class="content__wrapper">
             <h1 class="title title--big">Конструктор пиццы</h1>
-            <BuilderDoughSelector :doughs="doughs" />
-            <BuilderSizeSelector :sizes="sizes" />
+            <BuilderDoughSelector :doughs="doughs" @selectDough="selectDough" />
+            <BuilderSizeSelector :sizes="sizes" @selectSize="selectSize" />
             <BuilderIngredientsSelector
               :sauces="sauces"
               :ingredients="ingredients"
+              @selectSauce="selectSauce"
+              @increaseCount="increaseCount"
+              @decreaseCount="decreaseCount"
             />
-            <BuilderPizzaView />
+            <BuilderPizzaView
+              :ingredients="pizzaViewIngredients"
+              :total="sumTotal"
+            />
           </div>
         </form>
       </main>
@@ -46,6 +52,12 @@ export default {
   data: function () {
     return {
       pizza: pizza,
+      order: {
+        dough: {},
+        sauce: {},
+        size: {},
+        ingredients: [],
+      },
     };
   },
   computed: {
@@ -60,6 +72,55 @@ export default {
     },
     ingredients: function () {
       return normalizeData(this.pizza.ingredients, ingredients);
+    },
+    pizzaViewIngredients: function () {
+      let view = [];
+      this.order.ingredients.map((item) => {
+        view.push(item.value);
+      });
+      return view;
+    },
+    sumTotal() {
+      let ingredientsSum = 0;
+      const multiplier = this.order.size.multiplier || this.sizes[1].multiplier;
+      const dough = this.order.dough.price || this.doughs[0].price;
+      const sauce = this.order.sauce.price || this.sauces[0].price;
+      Object.keys(this.order).forEach((item) => {
+        if (Array.isArray(this.order[item])) {
+          this.order[item].map((el) => {
+            ingredientsSum += el.price * el.count;
+          });
+        }
+      });
+      return (dough + sauce + ingredientsSum) * multiplier;
+    },
+  },
+  methods: {
+    selectDough(dough) {
+      this.order.dough = this.doughs.find((item) => item.id === dough.id);
+    },
+    selectSize(size) {
+      this.order.size = this.sizes.find((item) => item.id === size.id);
+    },
+    selectSauce(sauce) {
+      this.order.sauce = this.sauces.find((item) => item.id === sauce.id);
+    },
+    increaseCount({ price, value, id }, count) {
+      const index = this.order.ingredients.findIndex((el) => el.id === id);
+      if (index >= 0) {
+        this.order.ingredients[index].count++;
+      } else {
+        this.order.ingredients.push({ price, value, id, count });
+      }
+    },
+    decreaseCount({ id }, count) {
+      const index = this.order.ingredients.findIndex((el) => el.id === id);
+      if (index >= 0) {
+        this.order.ingredients[index].count -= 1;
+      }
+      if (count < 1) {
+        this.order.ingredients.splice(index, 1);
+      }
     },
   },
 };

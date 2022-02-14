@@ -6,15 +6,18 @@
       <div class="sheet__content ingredients">
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
-
-          <label
+          <RadioButton
+            v-for="(sauce, index) in sauces"
             :key="sauce.id"
-            v-for="sauce in sauces"
-            class="radio ingredients__input"
-          >
-            <input type="radio" name="sauce" :value="sauce.value" checked />
-            <span>{{ sauce.name }}</span>
-          </label>
+            :name="'sauce'"
+            :productName="sauce.name"
+            :checked="index === 0"
+            :value="sauce.value"
+            :className="'radio ingredients__input'"
+            :showProductDescription="false"
+            :item="sauce"
+            @selectItem="$emit('selectSauce', sauce)"
+          />
         </div>
 
         <div class="ingredients__filling">
@@ -29,28 +32,10 @@
               <span class="filling" :class="`filling--${ingredient.value}`"
                 >{{ ingredient.name }}
               </span>
-
-              <div class="counter counter--orange ingredients__counter">
-                <button
-                  type="button"
-                  class="counter__button counter__button--minus"
-                  disabled
-                >
-                  <span class="visually-hidden">Меньше</span>
-                </button>
-                <input
-                  type="text"
-                  name="counter"
-                  class="counter__input"
-                  value="0"
-                />
-                <button
-                  type="button"
-                  class="counter__button counter__button--plus"
-                >
-                  <span class="visually-hidden">Больше</span>
-                </button>
-              </div>
+              <ItemCounter
+                @increaseCount="$emit('increaseCount', ingredient, $event)"
+                @decreaseCount="$emit('decreaseCount', ingredient, $event)"
+              />
             </li>
           </ul>
         </div>
@@ -60,8 +45,11 @@
 </template>
 
 <script>
+import ItemCounter from "@/common/components/ItemCounter";
+import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "BuilderIngredientsSelector",
+  components: { RadioButton, ItemCounter },
   props: {
     sauces: {
       type: Array,

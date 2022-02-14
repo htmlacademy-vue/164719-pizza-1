@@ -4,30 +4,27 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
       <div class="sheet__content dough">
-        <label
-          v-for="dough of doughs"
-          class="dough__input"
-          :class="`dough__input--${dough.value}`"
+        <RadioButton
+          v-for="(dough, index) of doughs"
           :key="dough.id"
-        >
-          <input
-            type="radio"
-            name="dought"
-            :value="dough.value"
-            class="visually-hidden"
-            checked
-          />
-          <b>{{ dough.name }}</b>
-          <span>{{ dough.description }}</span>
-        </label>
+          :productName="dough.description"
+          :name="'dought'"
+          :value="dough.value"
+          :className="`dough__input dough__input--${dough.value}`"
+          :productDescription="dough.name"
+          :checked="index === 0"
+          @selectItem="$emit('selectDough', dough)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "BuilderDoughSelector",
+  components: { RadioButton },
   props: {
     doughs: {
       type: Array,
