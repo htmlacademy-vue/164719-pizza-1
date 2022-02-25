@@ -13,12 +13,14 @@
               @selectSauce="selectSauce"
               @increaseCount="increaseCount"
               @decreaseCount="decreaseCount"
+              @startDragIngredient="startDragIngredient"
             />
             <BuilderPizzaView
               :ingredients="pizzaViewIngredients"
               :total="sumTotal"
               :sauce="order.sauce.value"
               :size="order.dough.value === 'large' ? 'big' : 'small'"
+              @stopDragIngredient="stopDragIngredient"
             />
           </div>
         </form>
@@ -123,6 +125,25 @@ export default {
       if (count < 1) {
         this.order.ingredients.splice(index, 1);
       }
+    },
+    startDragIngredient(event, ingredient) {
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("Ingredient", ingredient.id);
+    },
+    stopDragIngredient(event) {
+      const itemId = +event.dataTransfer.getData("Ingredient");
+      const filteredItem = this.ingredients.filter(
+        ({ id }) => id === itemId
+      )[0];
+      this.increaseCount(
+        {
+          price: filteredItem.price,
+          value: filteredItem.value,
+          id: filteredItem.id,
+        },
+        1
+      );
     },
   },
 };

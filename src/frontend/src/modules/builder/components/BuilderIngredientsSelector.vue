@@ -28,6 +28,8 @@
               class="ingredients__item"
               v-for="ingredient in ingredients"
               :key="ingredient.id"
+              draggable="true"
+              @dragstart="$emit('startDragIngredient', $event, ingredient)"
             >
               <span class="filling" :class="`filling--${ingredient.value}`"
                 >{{ ingredient.name }}
@@ -60,6 +62,7 @@ export default {
       required: true,
     },
   },
+  methods: {},
 };
 </script>
 

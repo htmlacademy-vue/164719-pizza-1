@@ -9,7 +9,12 @@
       />
     </label>
 
-    <div class="content__constructor">
+    <div
+      class="content__constructor"
+      @drop.stop="$emit('stopDragIngredient', $event)"
+      @dragenter.prevent
+      @dragover.prevent
+    >
       <div :class="`pizza pizza--foundation--${size}-${sauce}`">
         <div class="pizza__wrapper">
           <SelectorItem
