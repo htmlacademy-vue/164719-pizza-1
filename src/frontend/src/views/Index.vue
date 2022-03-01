@@ -60,7 +60,6 @@ export default {
         dough: {},
         sauce: {},
         size: {},
-        ingredients: [],
       },
     };
   },
@@ -137,8 +136,18 @@ export default {
       }
       const payload = dataTransfer.getData("Ingredient");
       if (payload) {
-        const transferData = JSON.parse(dataTransfer.getData("Ingredient"));
-        console.log(transferData);
+        let transferData = JSON.parse(dataTransfer.getData("Ingredient"));
+        this.pizza.ingredients = this.pizza.ingredients.map((item) => {
+          if (item.id === transferData.id) {
+            if (item.hasOwnProperty("count")) {
+              item.count++;
+            } else {
+              item.count = 0;
+              item.count++;
+            }
+          }
+          return item;
+        });
       }
     },
   },
