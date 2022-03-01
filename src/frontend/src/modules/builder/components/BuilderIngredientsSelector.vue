@@ -35,8 +35,10 @@
                 >{{ ingredient.name }}
               </span>
               <ItemCounter
-                @increaseCount="$emit('increaseCount', ingredient, $event)"
-                @decreaseCount="$emit('decreaseCount', ingredient, $event)"
+                :count="ingredient.count"
+                :id="ingredient.id"
+                @increaseCount="increaseCount"
+                @decreaseCount="decreaseCount"
               />
             </li>
           </ul>
@@ -59,10 +61,19 @@ export default {
     },
     ingredients: {
       type: Array,
-      required: true,
+      default() {
+        return [];
+      },
     },
   },
-  methods: {},
+  methods: {
+    increaseCount(id, count) {
+      this.$emit("increaseCount", id, count);
+    },
+    decreaseCount(id, count) {
+      this.$emit("decreaseCount", id, count);
+    },
+  },
 };
 </script>
 

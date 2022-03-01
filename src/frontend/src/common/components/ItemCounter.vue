@@ -4,7 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="count < 1"
-      @click="decreaseCount((count -= 1))"
+      @click="decreaseCount(count - 1)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -12,7 +12,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      @click="increaseCount((count += 1))"
+      @click="increaseCount(count + 1)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -23,24 +23,25 @@
 export default {
   name: "ItemCounter",
   props: {
-    idIngredient: {
+    count: {
+      type: Number,
+      default() {
+        return 0;
+      },
+    },
+    id: {
       type: Number,
       default() {
         return 0;
       },
     },
   },
-  data() {
-    return {
-      count: 0,
-    };
-  },
   methods: {
     increaseCount(count) {
-      this.$emit("increaseCount", count);
+      this.$emit("increaseCount", this.id, count);
     },
     decreaseCount(count) {
-      this.$emit("decreaseCount", count);
+      this.$emit("decreaseCount", this.id, count);
     },
   },
 };

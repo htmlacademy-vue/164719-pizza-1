@@ -79,8 +79,10 @@ export default {
     },
     pizzaViewIngredients: function () {
       let view = [];
-      this.order.ingredients.map((item) => {
-        view.push(item.value);
+      this.ingredients.map((item) => {
+        if (item.hasOwnProperty("count") && item.count) {
+          view.push(item.value);
+        }
       });
       return view;
     },
@@ -89,11 +91,10 @@ export default {
       const multiplier = this.order.size.multiplier || this.sizes[1].multiplier;
       const dough = this.order.dough.price || this.doughs[0].price;
       const sauce = this.order.sauce.price || this.sauces[0].price;
-      Object.keys(this.order).forEach((item) => {
-        if (Array.isArray(this.order[item])) {
-          this.order[item].map((el) => {
-            ingredientsSum += el.price * el.count;
-          });
+      Object.keys(this.ingredients).forEach((item) => {
+        if (this.ingredients[item].hasOwnProperty("count")) {
+          ingredientsSum +=
+            this.ingredients[item].price * this.ingredients[item].count;
         }
       });
       return (dough + sauce + ingredientsSum) * multiplier;
@@ -109,41 +110,36 @@ export default {
     selectSauce(sauce) {
       this.order.sauce = this.sauces.find((item) => item.id === sauce.id);
     },
-    increaseCount({ price, value, id }, count) {
-      const index = this.order.ingredients.findIndex((el) => el.id === id);
-      if (index >= 0) {
-        this.order.ingredients[index].count++;
-      } else {
-        this.order.ingredients.push({ price, value, id, count });
-      }
+    increaseCount(id, count) {
+      this.pizza.ingredients = this.pizza.ingredients.map((item) => {
+        if (item.id === id) {
+          item.count = count;
+        }
+        return item;
+      });
     },
-    decreaseCount({ id }, count) {
-      const index = this.order.ingredients.findIndex((el) => el.id === id);
-      if (index >= 0) {
-        this.order.ingredients[index].count -= 1;
-      }
-      if (count < 1) {
-        this.order.ingredients.splice(index, 1);
-      }
+    decreaseCount(id, count) {
+      this.pizza.ingredients = this.pizza.ingredients.map((item) => {
+        if (item.id === id) {
+          item.count = count;
+        }
+        return item;
+      });
     },
     startDragIngredient(event, ingredient) {
       event.dataTransfer.dropEffect = "move";
       event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("Ingredient", ingredient.id);
+      event.dataTransfer.setData("Ingredient", JSON.stringify(ingredient));
     },
-    stopDragIngredient(event) {
-      const itemId = +event.dataTransfer.getData("Ingredient");
-      const filteredItem = this.ingredients.filter(
-        ({ id }) => id === itemId
-      )[0];
-      this.increaseCount(
-        {
-          price: filteredItem.price,
-          value: filteredItem.value,
-          id: filteredItem.id,
-        },
-        1
-      );
+    stopDragIngredient({ dataTransfer }) {
+      if (!dataTransfer) {
+        return;
+      }
+      const payload = dataTransfer.getData("Ingredient");
+      if (payload) {
+        const transferData = JSON.parse(dataTransfer.getData("Ingredient"));
+        console.log(transferData);
+      }
     },
   },
 };
