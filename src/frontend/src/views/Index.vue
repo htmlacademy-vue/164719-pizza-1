@@ -139,12 +139,10 @@ export default {
         let transferData = JSON.parse(dataTransfer.getData("Ingredient"));
         this.pizza.ingredients = this.pizza.ingredients.map((item) => {
           if (item.id === transferData.id) {
-            if (item.hasOwnProperty("count")) {
-              item.count++;
-            } else {
+            if (!item.hasOwnProperty("count")) {
               item.count = 0;
-              item.count++;
             }
+            item.count++;
           }
           return item;
         });
