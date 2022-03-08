@@ -1,5 +1,5 @@
 <template>
-  <label :class="className">
+  <label>
     <input
       type="radio"
       :name="name"
@@ -22,10 +22,6 @@ export default {
       default() {
         return {};
       },
-    },
-    className: {
-      type: String,
-      default: "",
     },
     name: {
       type: String,

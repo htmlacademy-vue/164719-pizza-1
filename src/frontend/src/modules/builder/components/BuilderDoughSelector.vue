@@ -10,7 +10,7 @@
           :productName="dough.description"
           :name="'dought'"
           :value="dough.value"
-          :className="`dough__input dough__input--${dough.value}`"
+          :class="`dough__input dough__input--${dough.value}`"
           :productDescription="dough.name"
           :checked="index === 0"
           @selectItem="$emit('selectDough', dough)"
