@@ -18,8 +18,8 @@
       <div :class="`pizza pizza--foundation--${size}-${sauce}`">
         <div class="pizza__wrapper">
           <SelectorItem
-            v-for="(ingredient, index) in ingredients"
-            :key="index"
+            v-for="ingredient in ingredients"
+            :key="ingredient.id"
             :item="ingredient"
           />
         </div>
@@ -47,21 +47,15 @@ export default {
     },
     total: {
       type: Number,
-      default() {
-        return 0;
-      },
+      default: 0,
     },
     size: {
       type: String,
-      default() {
-        return "big";
-      },
+      default: "big",
     },
     sauce: {
       type: String,
-      default() {
-        return "tomato";
-      },
+      default: "tomato",
     },
   },
 };

@@ -25,45 +25,31 @@ export default {
     },
     className: {
       type: String,
-      default() {
-        return "";
-      },
+      default: "",
     },
     name: {
       type: String,
-      default() {
-        return "";
-      },
+      default: "",
     },
     productName: {
       type: String,
-      default() {
-        return "";
-      },
+      default: "",
     },
     showProductDescription: {
       type: Boolean,
-      default() {
-        return true;
-      },
+      default: true,
     },
     productDescription: {
       type: String,
-      default() {
-        return "";
-      },
+      default: "",
     },
     value: {
       type: String,
-      default() {
-        return "";
-      },
+      default: "",
     },
     checked: {
       type: Boolean,
-      default() {
-        return false;
-      },
+      default: false,
     },
   },
 };

@@ -13,6 +13,7 @@
       type="button"
       class="counter__button counter__button--plus"
       @click="increaseCount(count + 1)"
+      :disabled="count >= 3"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -25,15 +26,11 @@ export default {
   props: {
     count: {
       type: Number,
-      default() {
-        return 0;
-      },
+      default: 0,
     },
     id: {
       type: Number,
-      default() {
-        return 0;
-      },
+      default: 0,
     },
   },
   methods: {

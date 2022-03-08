@@ -13,7 +13,7 @@
             :productName="sauce.name"
             :checked="index === 0"
             :value="sauce.value"
-            :className="'radio ingredients__input'"
+            :class="'radio ingredients__input'"
             :showProductDescription="false"
             :item="sauce"
             @selectItem="$emit('selectSauce', sauce)"
@@ -28,7 +28,7 @@
               class="ingredients__item"
               v-for="ingredient in ingredients"
               :key="ingredient.id"
-              draggable="true"
+              :draggable="ingredient.count !== 3"
               @dragstart="$emit('startDragIngredient', $event, ingredient)"
             >
               <span class="filling" :class="`filling--${ingredient.value}`"
