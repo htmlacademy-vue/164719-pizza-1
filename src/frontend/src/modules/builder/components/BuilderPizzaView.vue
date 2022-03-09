@@ -11,7 +11,7 @@
 
     <div
       class="content__constructor"
-      @drop.stop="$emit('stopDragIngredient', $event)"
+      @drop.stop="stopDragIngredient($event)"
       @dragenter.prevent
       @dragover.prevent
     >
@@ -59,6 +59,18 @@ export default {
       type: String,
       default: "tomato",
       required: true,
+    },
+  },
+  methods: {
+    stopDragIngredient({ dataTransfer }) {
+      if (!dataTransfer) {
+        return;
+      }
+      const payload = dataTransfer.getData("Ingredient");
+      if (payload) {
+        let transferData = JSON.parse(dataTransfer.getData("Ingredient"));
+        this.$emit("stopDragIngredient", transferData);
+      }
     },
   },
 };

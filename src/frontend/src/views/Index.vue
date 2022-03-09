@@ -83,14 +83,12 @@ export default {
       return normalizeData(this.pizza.ingredients, ingredients);
     },
     pizzaViewIngredients: function () {
-      // const layers = ["", "second", "third"];
       let view = [];
       this.ingredients.map((item) => {
         if (item.hasOwnProperty("count")) {
           view.push({ ingredient: item.value, count: item.count });
         }
       });
-      console.log(view);
       return view;
     },
     sumTotal() {
@@ -138,23 +136,16 @@ export default {
       event.dataTransfer.effectAllowed = "move";
       event.dataTransfer.setData("Ingredient", JSON.stringify(ingredient));
     },
-    stopDragIngredient({ dataTransfer }) {
-      if (!dataTransfer) {
-        return;
-      }
-      const payload = dataTransfer.getData("Ingredient");
-      if (payload) {
-        let transferData = JSON.parse(dataTransfer.getData("Ingredient"));
-        this.pizza.ingredients = this.pizza.ingredients.map((item) => {
-          if (item.id === transferData.id) {
-            if (!item.hasOwnProperty("count")) {
-              item.count = 0;
-            }
-            item.count++;
+    stopDragIngredient(transferData) {
+      this.pizza.ingredients = this.pizza.ingredients.map((item) => {
+        if (item.id === transferData.id) {
+          if (!item.hasOwnProperty("count")) {
+            item.count = 0;
           }
-          return item;
-        });
-      }
+          item.count++;
+        }
+        return item;
+      });
     },
   },
 };
