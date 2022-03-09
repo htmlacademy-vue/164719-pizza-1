@@ -29,7 +29,7 @@
               v-for="ingredient in ingredients"
               :key="ingredient.id"
               :draggable="ingredient.count !== 3"
-              @dragstart="$emit('startDragIngredient', $event, ingredient)"
+              @dragstart="startDragIngredient($event, ingredient)"
             >
               <span class="filling" :class="`filling--${ingredient.value}`"
                 >{{ ingredient.name }}
@@ -79,6 +79,11 @@ export default {
     },
     decreaseCount(id, count) {
       this.$emit("decreaseCount", id, count);
+    },
+    startDragIngredient($event, ingredient) {
+      $event.dataTransfer.dropEffect = "move";
+      $event.dataTransfer.effectAllowed = "move";
+      $event.dataTransfer.setData("Ingredient", JSON.stringify(ingredient));
     },
   },
 };

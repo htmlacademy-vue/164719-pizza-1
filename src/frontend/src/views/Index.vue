@@ -13,7 +13,6 @@
               @selectSauce="selectSauce"
               @increaseCount="increaseCount"
               @decreaseCount="decreaseCount"
-              @startDragIngredient="startDragIngredient"
             />
             <BuilderPizzaView
               :ingredients="pizzaViewIngredients"
@@ -130,11 +129,6 @@ export default {
         }
         return item;
       });
-    },
-    startDragIngredient(event, ingredient) {
-      event.dataTransfer.dropEffect = "move";
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("Ingredient", JSON.stringify(ingredient));
     },
     stopDragIngredient(transferData) {
       this.pizza.ingredients = this.pizza.ingredients.map((item) => {
