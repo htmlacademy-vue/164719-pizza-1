@@ -20,7 +20,8 @@
           <SelectorItem
             v-for="ingredient in ingredients"
             :key="ingredient.id"
-            :item="ingredient"
+            :ingredient="ingredient.ingredient"
+            :count="ingredient.count"
           />
         </div>
       </div>
@@ -52,10 +53,12 @@ export default {
     size: {
       type: String,
       default: "big",
+      required: true,
     },
     sauce: {
       type: String,
       default: "tomato",
+      required: true,
     },
   },
 };

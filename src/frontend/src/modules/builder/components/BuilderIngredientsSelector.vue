@@ -7,13 +7,13 @@
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
           <RadioButton
-            v-for="(sauce, index) in sauces"
+            v-for="sauce in sauces"
             :key="sauce.id"
             :name="'sauce'"
             :productName="sauce.name"
-            :checked="index === 0"
+            :checked="sauce.id === selectedSauce.id"
             :value="sauce.value"
-            :class="'radio ingredients__input'"
+            class="radio ingredients__input"
             :showProductDescription="false"
             :item="sauce"
             @selectItem="$emit('selectSauce', sauce)"
@@ -54,6 +54,13 @@ import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "BuilderIngredientsSelector",
   components: { RadioButton, ItemCounter },
+  data() {
+    return {
+      selectedSauce: {
+        id: 1,
+      },
+    };
+  },
   props: {
     sauces: {
       type: Array,

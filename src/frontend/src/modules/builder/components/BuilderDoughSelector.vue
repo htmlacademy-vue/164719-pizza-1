@@ -5,14 +5,14 @@
 
       <div class="sheet__content dough">
         <RadioButton
-          v-for="(dough, index) of doughs"
+          v-for="dough of doughs"
           :key="dough.id"
           :productName="dough.description"
           :name="'dought'"
           :value="dough.value"
           :class="`dough__input dough__input--${dough.value}`"
           :productDescription="dough.name"
-          :checked="index === 0"
+          :checked="dough.id === selectedDough.id"
           @selectItem="$emit('selectDough', dough)"
         />
       </div>
@@ -25,6 +25,13 @@ import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "BuilderDoughSelector",
   components: { RadioButton },
+  data() {
+    return {
+      selectedDough: {
+        id: 1,
+      },
+    };
+  },
   props: {
     doughs: {
       type: Array,

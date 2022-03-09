@@ -53,13 +53,19 @@ export default {
     BuilderIngredientsSelector,
     BuilderPizzaView,
   },
-  data: function () {
+  data() {
     return {
       pizza: pizza,
       order: {
-        dough: {},
-        sauce: {},
-        size: {},
+        dough: {
+          price: 300,
+        },
+        sauce: {
+          price: 50,
+        },
+        size: {
+          multiplier: 2,
+        },
       },
     };
   },
@@ -77,19 +83,21 @@ export default {
       return normalizeData(this.pizza.ingredients, ingredients);
     },
     pizzaViewIngredients: function () {
+      // const layers = ["", "second", "third"];
       let view = [];
       this.ingredients.map((item) => {
-        if (item.hasOwnProperty("count") && item.count) {
-          view.push(item.value);
+        if (item.hasOwnProperty("count")) {
+          view.push({ ingredient: item.value, count: item.count });
         }
       });
+      console.log(view);
       return view;
     },
     sumTotal() {
       let ingredientsSum = 0;
-      const multiplier = this.order.size.multiplier || this.sizes[1].multiplier;
-      const dough = this.order.dough.price || this.doughs[0].price;
-      const sauce = this.order.sauce.price || this.sauces[0].price;
+      const multiplier = this.order.size.multiplier;
+      const dough = this.order.dough.price;
+      const sauce = this.order.sauce.price;
       Object.keys(this.ingredients).forEach((item) => {
         if (this.ingredients[item].hasOwnProperty("count")) {
           ingredientsSum +=
