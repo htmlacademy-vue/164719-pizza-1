@@ -8,7 +8,7 @@
           v-for="(size, index) of sizes"
           :key="size.id"
           :class="`diameter__input  diameter__input--${size.value}`"
-          :name="'diameter'"
+          :name="diameter"
           :value="size.value"
           :checked="index === 1"
           :productName="size.name"

@@ -9,7 +9,7 @@
           <RadioButton
             v-for="sauce in sauces"
             :key="sauce.id"
-            :name="'sauce'"
+            :name="sauce"
             :productName="sauce.name"
             :checked="sauce.id === selectedSauce.id"
             :value="sauce.value"
