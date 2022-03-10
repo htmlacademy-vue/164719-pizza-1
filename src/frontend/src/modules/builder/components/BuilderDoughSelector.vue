@@ -8,7 +8,7 @@
           v-for="dough of doughs"
           :key="dough.id"
           :productName="dough.description"
-          :name="dought"
+          name="dought"
           :value="dough.value"
           :class="`dough__input dough__input--${dough.value}`"
           :productDescription="dough.name"

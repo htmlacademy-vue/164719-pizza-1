@@ -2,7 +2,6 @@
   <label>
     <input
       type="radio"
-      :name="name"
       :value="value"
       class="visually-hidden"
       :checked="checked"
@@ -22,10 +21,6 @@ export default {
       default() {
         return {};
       },
-    },
-    name: {
-      type: String,
-      default: "",
     },
     productName: {
       type: String,
