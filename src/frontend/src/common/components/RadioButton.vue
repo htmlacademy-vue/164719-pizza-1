@@ -3,6 +3,7 @@
     <input
       type="radio"
       :value="value"
+      :name="name"
       class="visually-hidden"
       :checked="checked"
       @change="$emit('selectItem', item)"
@@ -41,6 +42,10 @@ export default {
     checked: {
       type: Boolean,
       default: false,
+    },
+    name: {
+      type: String,
+      default: "",
     },
   },
 };

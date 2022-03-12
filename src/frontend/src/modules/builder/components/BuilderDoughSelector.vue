@@ -12,7 +12,7 @@
           :value="dough.value"
           :class="`dough__input dough__input--${dough.value}`"
           :productDescription="dough.name"
-          :checked="dough.id === selectedDough.id"
+          :checked="dough.id === selectedDough"
           @selectItem="$emit('selectDough', dough)"
         />
       </div>
@@ -25,17 +25,14 @@ import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "BuilderDoughSelector",
   components: { RadioButton },
-  data() {
-    return {
-      selectedDough: {
-        id: 1,
-      },
-    };
-  },
   props: {
     doughs: {
       type: Array,
       required: true,
+    },
+    selectedDough: {
+      type: Number,
+      default: 1,
     },
   },
 };

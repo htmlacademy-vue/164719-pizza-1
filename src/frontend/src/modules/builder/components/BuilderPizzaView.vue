@@ -52,12 +52,10 @@ export default {
     },
     size: {
       type: String,
-      default: "big",
       required: true,
     },
     sauce: {
       type: String,
-      default: "tomato",
       required: true,
     },
   },

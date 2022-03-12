@@ -57,13 +57,15 @@ export default {
       pizza: pizza,
       order: {
         dough: {
-          price: 300,
+          price: pizza.dough[0].price,
+          value: "big",
         },
         sauce: {
-          price: 50,
+          price: pizza.sauces[0].price,
+          value: "tomato",
         },
         size: {
-          multiplier: 2,
+          multiplier: pizza.sizes[1].multiplier,
         },
       },
     };
