@@ -5,7 +5,11 @@
         <form action="#" method="post">
           <div class="content__wrapper">
             <h1 class="title title--big">Конструктор пиццы</h1>
-            <BuilderDoughSelector :doughs="doughs" @selectDough="selectDough" />
+            <BuilderDoughSelector
+              :doughs="doughs"
+              @selectDough="selectDough"
+              :selectedDough="doughs[0].id"
+            />
             <BuilderSizeSelector :sizes="sizes" @selectSize="selectSize" />
             <BuilderIngredientsSelector
               :sauces="sauces"

@@ -11,7 +11,7 @@
             :key="sauce.id"
             name="sauce"
             :productName="sauce.name"
-            :checked="sauce.id === selectedSauce.id"
+            :checked="sauce.id === selectedSauce"
             :value="sauce.value"
             class="radio ingredients__input"
             :showProductDescription="false"
@@ -54,13 +54,6 @@ import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "BuilderIngredientsSelector",
   components: { RadioButton, ItemCounter },
-  data() {
-    return {
-      selectedSauce: {
-        id: 1,
-      },
-    };
-  },
   props: {
     sauces: {
       type: Array,
@@ -71,6 +64,9 @@ export default {
       default() {
         return [];
       },
+    },
+    selectedSauce: {
+      default: 1,
     },
   },
   methods: {
